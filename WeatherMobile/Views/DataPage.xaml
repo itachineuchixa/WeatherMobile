@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherMobile.DataPage"
+             Title="DataPage">
+    <VerticalStackLayout>
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <HorizontalStackLayout Grid.Column="0" Grid.Row="0" Spacing="10" Margin="5">
+                <Label Text="Текущая погода" FontSize="Medium" Grid.Column="0" Grid.Row="0"/>
+                <Picker x:Name="languagePicker" Title = "Город:"
+                ItemsSource="{Binding PickerItems}" 
+                SelectedItem="{Binding RESULTS}"
+                SelectedIndex="0"
+/>
+                <Button Text="Удалить Город" Command="{Binding Delete}"/>
+                <Button Text="Добавить Город" Command="{Binding GotoAd}"/>
+            </HorizontalStackLayout>
+            <VerticalStackLayout Grid.Column="0" Grid.Row="1" Spacing="10" Margin="5">
+                <Label Text="{Binding Current_Weather}" FontSize="Medium" Grid.Column="0" Grid.Row="0"/>
+                <Label Text="Максимум" FontSize="Medium" Grid.Column="0" Grid.Row="0"/>
+                <Label  Text="{Binding Max_Weather}" FontSize="Medium" Grid.Column="0" Grid.Row="0"/>
+                <Label Text="Минимум" FontSize="Medium" Grid.Column="0" Grid.Row="0"/>
+                <Label  Text="{Binding Min_Weather}" FontSize="Medium" Grid.Column="0" Grid.Row="0"/>
+                <Label Text="Средняя" FontSize="Medium" Grid.Column="0" Grid.Row="1"/>
+                <Label Text="{Binding Avg_Weather}" FontSize="Medium" Grid.Column="0" Grid.Row="1"/>
+            </VerticalStackLayout>
+        </Grid>
+        <Picker x:Name="ModePicker" Title = "Период"
+                ItemsSource="{Binding ModeItems}" 
+                SelectedItem="{Binding SETMODE}"
+                SelectedIndex="0"
+/>
+        <Button Text="График" Command="{Binding Goto}" FontSize="Medium" Grid.Column="0" Grid.Row="1"/>
+    </VerticalStackLayout>
+
+
+</ContentPage>

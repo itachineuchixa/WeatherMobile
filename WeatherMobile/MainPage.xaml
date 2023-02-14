@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherMobile.MainPage">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label  Text="Вход" FontSize="20" Margin="5"/>
+            <Label Text="Логин"
+                       VerticalOptions="End"
+                       Margin="5"/>
+
+            <Editor Text="{Binding username}"
+                      Margin="5" 
+                     Background="#FEFFB7 "/>
+            <Label Text="Пароль"
+                       Margin="5"/>
+            <Editor Text="{Binding password}"
+                         Margin="5" Background="#FEFFB7 "/>
+            <Button Text="Войти"
+                     Margin="5"
+                    x:Name="BtnAuth"
+                    Command="{Binding LogClck}"/>
+            <Button x:Name="Reg" Text="Регистрация" Command="{Binding RegClck}"  FontSize="18"/>
+            <Label Text="{Binding RESULTS}"
+                       Margin="5"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

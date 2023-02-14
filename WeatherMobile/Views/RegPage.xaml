@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherMobile.RegPage"
+             Title="">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label  Text="Регистрация" FontSize="20" Margin="5"/>
+            <Label Text="Логин"
+                       VerticalOptions="End"
+                       Margin="5"/>
+
+            <Editor Text="{Binding username}"
+                      Margin="5" 
+                     Background="#FEFFB7 "/>
+            <Label Text="Пароль"
+                       Margin="5"/>
+            <Editor Text="{Binding password}"
+                         Margin="5" Background="#FEFFB7 "/>
+            <Button Text="Зарегистрироваться"
+                     Margin="5"
+                    x:Name="BtnAuth"
+                    Command="{Binding LogClck}"/>
+            <Label Text="{Binding RESULTS}"
+                       Margin="5"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
