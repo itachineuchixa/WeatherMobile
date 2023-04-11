@@ -119,75 +119,79 @@ namespace WeatherMobile
         }
         public async void settemp()
         {
-            if (Models.Mode.Current_mode != null)
+            try
             {
-                long id = (from i in citi where i.City1 == RESULTS select i.Id).ToList()[0];
-                Models.Mode.City_id = id.ToString();
-                if (Models.Mode.Current_mode == "Month")
+                if (Models.Mode.Current_mode != null)
                 {
-                    Current_Weather = await Get_current(id.ToString()) + "°c";
-                    var min = await Get_min(id.ToString());
-                    string[] mins = min.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
-                    double[] mini = new double[mins.Count()];
-                    for (int i = 0; i < mins.Count(); i++)
+                    long id = (from i in citi where i.City1 == RESULTS select i.Id).ToList()[0];
+                    Models.Mode.City_id = id.ToString();
+                    if (Models.Mode.Current_mode == "Month")
                     {
-                        mini[i] = double.Parse(mins[i]);
+                        Current_Weather = await Get_current(id.ToString()) + "°c";
+                        var min = await Get_min(id.ToString());
+                        string[] mins = min.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
+                        double[] mini = new double[mins.Count()];
+                        for (int i = 0; i < mins.Count(); i++)
+                        {
+                            mini[i] = double.Parse(mins[i]);
+                        }
+                        Min_Weather = mini.Min().ToString() + "°c";
+                        var max = await Get_max(id.ToString());
+                        string[] maxs = max.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
+                        double[] maxi = new double[mins.Count()];
+                        for (int i = 0; i < maxs.Count(); i++)
+                        {
+                            maxi[i] = double.Parse(maxs[i]);
+                        }
+                        Max_Weather = maxi.Max().ToString() + "°c";
+                        var avg = await Get_graph(id.ToString());
+                        string[] avgs = avg.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
+                        double[] av = new double[avgs.Count()];
+                        for (int i = 0; i < avgs.Count(); i++)
+                        {
+                            av[i] = double.Parse(avgs[i]);
+                        }
+                        double a = av.Average();
+                        Avg_Weather = Math.Round(a, 2).ToString() + "°c";
                     }
-                    Min_Weather = mini.Min().ToString() + "°c";
-                    var max = await Get_max(id.ToString());
-                    string[] maxs = max.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
-                    double[] maxi = new double[mins.Count()];
-                    for (int i = 0; i < maxs.Count(); i++)
+                    else
                     {
-                        maxi[i] = double.Parse(maxs[i]);
+                        Current_Weather = await Get_current(id.ToString()) + "°c";
+                        var min = await Get_min(id.ToString());
+                        string[] mins = min.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
+                        double[] mini = new double[7];
+                        int n = 0;
+                        for (int i = mins.Count() - 7; i < mins.Count(); i++)
+                        {
+                            mini[n] = double.Parse(mins[i]);
+                            n++;
+                        }
+                        Min_Weather = mini.Min().ToString() + "°c";
+                        var max = await Get_max(id.ToString());
+                        string[] maxs = max.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
+                        double[] maxi = new double[7];
+                        n = 0;
+                        for (int i = maxs.Count() - 7; i < maxs.Count(); i++)
+                        {
+                            maxi[n] = double.Parse(maxs[i]);
+                            n++;
+                        }
+                        Max_Weather = maxi.Max().ToString() + "°c";
+                        var avg = await Get_graph(id.ToString());
+                        string[] avgs = avg.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
+                        double[] av = new double[160];
+                        n = 0;
+                        for (int i = avgs.Count() - 160; i < avgs.Count(); i++)
+                        {
+                            av[n] = double.Parse(avgs[i]);
+                            n++;
+                        }
+                        double a = av.Average();
+                        Avg_Weather = Math.Round(a, 2).ToString() + "°c";
                     }
-                    Max_Weather = maxi.Max().ToString() + "°c";
-                    var avg = await Get_graph(id.ToString());
-                    string[] avgs = avg.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
-                    double[] av = new double[avgs.Count()];
-                    for (int i = 0; i < avgs.Count(); i++)
-                    {
-                        av[i] = double.Parse(avgs[i]);
-                    }
-                    double a = av.Average();
-                    Avg_Weather = Math.Round(a, 2).ToString() + "°c";
-                }
-                else
-                {
-                    Current_Weather = await Get_current(id.ToString()) + "°c";
-                    var min = await Get_min(id.ToString());
-                    string[] mins = min.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
-                    double[] mini = new double[7];
-                    int n = 0;
-                    for (int i = mins.Count() - 7; i < mins.Count(); i++)
-                    {
-                        mini[n] = double.Parse(mins[i]);
-                        n++;
-                    }
-                    Min_Weather = mini.Min().ToString() + "°c";
-                    var max = await Get_max(id.ToString());
-                    string[] maxs = max.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
-                    double[] maxi = new double[7];
-                    n = 0;
-                    for (int i = maxs.Count() - 7; i < maxs.Count(); i++)
-                    {
-                        maxi[n] = double.Parse(maxs[i]);
-                        n++;
-                    }
-                    Max_Weather = maxi.Max().ToString() + "°c";
-                    var avg = await Get_graph(id.ToString());
-                    string[] avgs = avg.Replace(",", ";").Replace(".", ",").Split("[")[1].Split("]")[0].Split(";");
-                    double[] av = new double[160];
-                    n = 0;
-                    for (int i = avgs.Count() - 160; i < avgs.Count(); i++)
-                    {
-                        av[n] = double.Parse(avgs[i]);
-                        n++;
-                    }
-                    double a = av.Average();
-                    Avg_Weather = Math.Round(a, 2).ToString() + "°c";
                 }
             }
+            catch { }
         }
 
         private async void Delete_Click()
